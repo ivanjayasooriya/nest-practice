@@ -2,10 +2,16 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module.js';
 import { ValidationPipe } from '@nestjs/common';
 
-async function bootstrap() { // Async function to bootstrap the application
+async function bootstrap() {
+  // Async function to bootstrap the application
   const app = await NestFactory.create(AppModule); // Create a new instance of the Nest application
 
-  app.useGlobalPipes( // Apply global validation pipes to the application
+  app.enableCors(); // Enable Cross-Origin Resource Sharing (CORS) to allow requests from different origins
+
+  app.setGlobalPrefix('api/v1'); // Set a global prefix for all routes in the application (e.g., /api/v1)
+
+  app.useGlobalPipes(
+    // Apply global validation pipes to the application
     new ValidationPipe({
       whitelist: true, // Strip properties that do not have any decorators
       forbidNonWhitelisted: true, // Throw an error if non-whitelisted properties are present

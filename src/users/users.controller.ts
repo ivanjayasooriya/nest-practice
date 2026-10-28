@@ -5,9 +5,11 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service.js';
 import { CreateUserDto } from './users-dto/create-user.dto.js';
+import { AuthGuard } from '../common/guard/auth-guard.guard.js';
 
 @Controller('users')
 export class UsersController {
@@ -29,5 +31,11 @@ export class UsersController {
   @Post()
   create(@Body() createUserDto: CreateUserDto): CreateUserDto {
     return this.usersService.create(createUserDto);
+  }
+
+  @UseGuards(AuthGuard) // Applying the AuthGuard to this route
+  @Get('protected')
+  getProtectedResource(): string {
+    return 'This is a protected resource';
   }
 }
