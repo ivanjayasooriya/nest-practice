@@ -1,9 +1,16 @@
-import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
+import {
+  IsEmail,
+  IsEmpty,
+  IsNotEmpty,
+  IsString,
+  MinLength,
+} from 'class-validator';
 
 // npm install class-validator class-transformer
 
 export class CreateUserDto {
-  id: number;
+  @IsEmpty()
+  id?: number;
 
   @IsString()
   @IsNotEmpty()
@@ -13,6 +20,6 @@ export class CreateUserDto {
   email: string;
 
   @IsString()
-  @MinLength(8)
+  @MinLength(6)
   password: string;
 }

@@ -3,19 +3,20 @@ import { CreateUserDto } from './users-dto/create-user.dto.js';
 
 @Injectable()
 export class UsersService {
+  private users: CreateUserDto[] = [];
 
-    private users: CreateUserDto[] = [];
+  findAll(): CreateUserDto[] {
+    return this.users;
+  }
 
-    findAll(): CreateUserDto[] {
-        return this.users;
-    }
+  findOne(id: number): CreateUserDto | undefined {
+    return this.users.find((user) => user.id === id);
+  }
 
-    findOne(id: number): CreateUserDto | undefined {
-        return this.users.find(user => user.id === id);
-    }
+  create(user: CreateUserDto): CreateUserDto {
+    user.id = this.users.length + 1;
 
-    create(user: CreateUserDto): CreateUserDto {
-        this.users.push(user);
-        return user;
-    }
+    this.users.push(user);
+    return user;
+  }
 }
