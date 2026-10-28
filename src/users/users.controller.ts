@@ -6,7 +6,7 @@ import { CreateUserDto } from './users-dto/create-user.dto.js';
 export class UsersController {
 
     constructor(
-        private readonly usersService: UsersService
+        private readonly usersService: UsersService // Dependency injection
     ) {}
 
     @Get()
